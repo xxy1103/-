@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>井字棋游戏</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>井字棋游戏</h1>
+        <hr>
+        <p class="qipan">
+            <table border="1">
+                <tr>
+                    <td class="q1" value="1"> </td>
+                    <td class="q2" value="2"> </td>
+                    <td class="q3" value="3"> </td>
+                </tr>
+                <tr>
+                    <td class="q4" value="4"> </td>
+                    <td class="q5" value="5"> </td>
+                    <td class="q6" value="6"> </td>
+                </tr>
+                <tr>
+                    <td class="q7" value="7"> </td>
+                    <td class="q8" value="8"> </td>
+                    <td class="q9" value="9"> </td>
+                </tr>
+            </table>
+        </p>
+        <p class="score">
+            记分板： <span id="playerScore"></span>:<span id="robotScore"></span>
+        </p>
+        <p class="weiyu"></p>
+        <button type="button" class="reset">再来一把！</button>
+        <button type="button" class="regret" disabled="true">上一步/悔棋</button>
+        <button type="button" class="next" disabled="true">下一步</button>
+        <p class="xo">
+            选择你的图标：
+            <select class="qizi">
+            <option value="X" selected="selected">x</option>
+            <option value="O">o</option>
+        </select>
+        </p>
+        <script>
+            var count = 0,judgeWin = 0,before = 0,score1 = 0,score2 = 0;
+            document.getElementById('playerScore').innerHTML = score1;
+            document.getElementById('robotScore').innerHTML = score2;
+            let arr = [];
+            let history  =[];
+            const q1 = document.querySelector(".q1");
+            const q2 = document.querySelector(".q2");
+            const q3 = document.querySelector(".q3");
+            const q4 = document.querySelector(".q4");
+            const q5 = document.querySelector(".q5");
+            const q6 = document.querySelector(".q6");
+            const q7 = document.querySelector(".q7");
+            const q8 = document.querySelector(".q8");
+            const q9 = document.querySelector(".q9");
+            const select = document.querySelector(".qizi");
+            const resetButton = document.querySelector(".reset");
+            const weiyu = document.querySelector(".weiyu");
+            const regret = document.querySelector(".regret");
+            const next = document.querySelector(".next");
+            const score = document.querySelector(".score");
+            let index = select.selectedIndex;
+            let selectObj = "X";
+            let robotObj = "O";
+            arr.push(q1);
+            arr.push(q2);
+            arr.push(q3);
+            arr.push(q4);
+            arr.push(q5);
+            arr.push(q6);
+            arr.push(q7);
+            arr.push(q8);
+            arr.push(q9);
+            start();
+            select.addEventListener("click",change);
+            resetButton.addEventListener("click",reset);
+            regret.addEventListener("click",huiqi);
+            next.addEventListener("click",goNext);
+            function change(){
+                selectObj = select.value;
+                if(selectObj === "X")
+                    robotObj = "O";
+                else
+                    robotObj = "X";
+            }
+            function start()
+            {
+                for( let i = 0;i<9;i++)
+                {
+                    arr[i].addEventListener("click",function gogo(){
+                        go(i);
+                    });    
+                }
+            }
+            function robotgo()
+            {
+                for(let i = 0; i<9 ;i++)
+                {
+                    if(arr[i].textContent === " ")
+                    {
+                        history[count] = [i];
+                        arr[i].textContent = robotObj;
+                        count++;
+                        break;
+                    }
+                }
+            }
+            function go(i){
+                if(arr[i].textContent !== " ")
+                    return ;
+                if(weiyu.textContent !== "")
+                    return ;
+                before = 0;
+                next.disabled = true;
+                history[count] = i;
+                count++;
+                arr[i].textContent = selectObj;
+                if(judge())
+                {    
+                    robotgo();
+                    judge();
+                }
+            }
+            function win(qa,qb,qc)
+            {
+                judgeWin = 1;
+                qa.style.backgroundColor = "yellow";
+                qb.style.backgroundColor = "yellow";
+                qc.style.backgroundColor = "yellow";
+                if(qa.textContent === robotObj)
+                {
+                    weiyu.textContent = "你输了!";
+                    score2++;
+                }
+                else if(qa.textContent === selectObj)
+                {
+                    weiyu.textContent = "你赢了!";
+                    score1++;
+                }
+                document.getElementById('playerScore').innerHTML = score1;
+                document.getElementById('robotScore').innerHTML = score2;
+                if(score1 > score2)
+                    score.style.color = "red";
+                else
+                score.style.color = "black";
+            }
+            function judge()
+            {
+                if(count !== 0)
+                {
+                    select.disabled = true;
+                    regret.disabled = false;
+                }
+                if(q1.textContent === q2.textContent && q1.textContent === q3.textContent && q1.textContent !== " ")
+                {
+                    win(q1,q2,q3);
+                    return false;   
+                }
+                if(q1.textContent === q4.textContent && q1.textContent === q7.textContent && q1.textContent !== " ")
+                {
+                    win(q1,q4,q7);
+                    return false;
+                }
+                if(q1.textContent === q5.textContent && q1.textContent === q9.textContent && q1.textContent !== " " )
+                {
+                    win(q1,q5,q9);
+                    return false;
+                }
+                if(q2.textContent === q5.textContent && q2.textContent === q8.textContent && q2.textContent !== " ")
+                {
+                    win(q2,q5,q8);
+                    return false;
+                }
+                if(q3.textContent === q6.textContent && q3.textContent === q9.textContent && q3.textContent !== " ")
+                {
+                    win(q3,q6,q9);
+                    return false;
+                }
+                if(q4.textContent === q5.textContent && q4.textContent === q6.textContent && q4.textContent !== " ")
+                {
+                    win(q4,q5,q6);
+                    return false;
+                }
+                if(q7.textContent === q8.textContent && q7.textContent === q9.textContent && q7.textContent !== " ")
+                {
+                    win(q7,q8,q9);
+                    return false;
+                }
+                if(q3.textContent === q5.textContent && q3.textContent === q7.textContent && q3.textContent !== " ")
+                {
+                    win(q3,q5,q7);
+                    return false;
+                }
+                if(count === 9)
+                {
+                    weiyu.textContent = "平局了!";
+                    judgeWin = 1;
+                    return false;
+                }
+                return true;
+            }
+            function reset()
+            {
+                for(let i = 0;i<9;i++)
+                {
+                    arr[i].textContent = " ";
+                }
+                for(let i = 0;i<9;i++)
+                {
+                    arr[i].style.backgroundColor = "rgb(175, 204, 228)";
+                }
+                start();
+                count = 0,before = 0,judgeWin = 0;
+                select.disabled = false;
+                weiyu.textContent = "";
+            }
+            function huiqi()
+            {
+                before++;
+                next.disabled = false;
+                if(judgeWin === 1)
+                {
+                    for(let i = 0;i<9;i++)
+                    {
+                        arr[i].style.backgroundColor = "rgb(175, 204, 228)";
+                    }
+                    weiyu.textContent = "";
+                    judgeWin = 0;
+                }
+                if(count%2 === 0)
+                {
+                    arr[history[--count]].textContent = " ";
+                    arr[history[--count]].textContent = " ";
+                }
+                else
+                {
+                    arr[history[--count]].textContent = " ";
+                }
+                if(count === 0)
+                {
+                    select.disabled = false;
+                    regret.disabled = true;
+                }
+            }
+            function goNext()
+            {
+                before--;
+                arr[history[count++]].textContent = selectObj;
+                if(judge())
+                {
+                    arr[history[count++]].textContent = robotObj;
+                    judge();
+                }
+                if(before === 0)
+                    next.disabled = true;
+            }
+        </script>
+    </body>
+</html>

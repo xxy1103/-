@@ -1,0 +1,111 @@
+.weiyu{position: relative;top: 80px;font-size: xx-large;color: red;}
+body{text-align: center;background-color:rgb(175, 204, 228);}
+.xo{
+    position: relative;
+    top: 100px;
+    }
+.reset{
+    position: relative;
+    top: 100px;
+    width: 120px;
+    height: 66px;
+    border-radius: 12px;
+    background-color: #008CBA;
+    }
+.regret{
+    position: relative;
+    top: 100px;
+    width: 120px;
+    height: 66px;
+    border-radius: 12px;
+    background-color: #008CBA;
+}
+    select {
+        background-color: transparent;
+        border: none;
+        padding: 0 1em 0 0;
+        margin: 0;
+        font-family: inherit;
+        font-size:xx-large;
+        cursor: inherit;
+        line-height: inherit;
+        width: 100px;
+        height: 50px;
+      }
+.qipan{text-align: center;}
+table{
+    position: relative;
+    left:25%;
+    border-collapse:collapse;
+    width: 50%;
+    border-style: none;
+}
+.q5{
+    width: 33%;
+    border-style: ridge;
+    border-width: 10px;
+    border-color: beige;
+}
+.q1{
+    width: 33%;
+    border-top-style: none;
+    border-left-style: none;
+    border-bottom-style: ridge;
+    border-bottom-width: 10px;
+    border-bottom-color: beige;
+    border-right-style: ridge;
+    border-right-width: 10px;
+    border-right-color: beige;
+}
+.q2{
+    width: 33%;
+    border-top-style: none;
+}
+.q3{
+    width: 33%;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: ridge;
+    border-bottom-width: 10px;
+    border-bottom-color: beige;
+    border-left-style: ridge;
+    border-left-width: 10px;
+    border-left-color: beige;
+}
+.q4{
+    width: 33%;
+    border-left-style: none;
+}
+.q6{
+    width: 33%;
+    border-right-style: none;
+}
+.q7{
+    width: 33%;
+    border-left-style: none;
+    border-bottom-style: none;
+    border-top-style: ridge;
+    border-top-width: 10px;
+    border-top-color: beige;
+    border-right-style: ridge;
+    border-right-width: 10px;
+    border-right-color: beige;
+}
+.q8{
+    width: 33%;
+    border-bottom-style: none;
+}
+.q9{
+    width: 33%;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-top-style: ridge;
+    border-top-width: 10px;
+    border-top-color: beige;
+    border-left-style: ridge;
+    border-left-width: 10px;
+    border-left-color: beige;
+}
+td{
+    height: 150px;
+}
